@@ -55,5 +55,6 @@ class ProductRepository:
                         (product_id, sku, name, description))
             self.conn.commit()
             print("Insertado correctamente")
+
         
         

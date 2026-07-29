@@ -1,9 +1,9 @@
 # Esquema por módulos
 
 ## Productos
-- products
-- brands
-- categories
+- products x
+- brands x
+- categories 
 - product_categories
 - product_variants
 - product_attribute_keys
