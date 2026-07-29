@@ -9,10 +9,13 @@ def main():
     """
     repo = ProductRepository()
     try:
-        repo.insert_brands(4, "Intel")
-        print("Proceso finalizado")
+        # repo.insert_brands(5, "NVIDIA")
+        # print("Proceso finalizado")
 
-        repo.insert_product(1, "skuyqye", "Banana", "Yellow banana for you to eat")
+        # repo.insert_product(2, "sfgdgg", "Manzana", "Red apple for you to eat")
+        # print("Proceso finalizado")
+
+        repo.insert_category(1, "Shoes", "f1256", 1, "Shoes of all types to wear")
         print("Proceso finalizado")
           
     finally:
