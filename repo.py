@@ -44,12 +44,20 @@ class ProductRepository:
             return cur.fetchone()
 
     def insert_product(
-            self, 
-            product_id : int, 
-            sku : str,
-            name : str,
-            description : str,
-        ):
+        self,
+        product_id: int,
+        sku: str,
+        name: str,
+        description: str,
+    ):
+        """Insert a new product into the database.
+
+        Args:
+            product_id: The identifier of the product.
+            sku: The product SKU.
+            name: The product name.
+            description: The product description.
+        """
         with self.conn.cursor() as cur:
             cur.execute("INSERT INTO products (product_id, sku, name, description) VALUES (%s, %s, %s, %s)",
                         (product_id, sku, name, description))
@@ -57,14 +65,22 @@ class ProductRepository:
             print("Insertado correctamente")
 
     def insert_category(
-            self, 
-            category_id : int,
-            name : str,
-            slug : str,
-            parent_category_id : int,
-            description : str,
-        ):    
+        self,
+        category_id: int,
+        name: str,
+        slug: str,
+        parent_category_id: int,
+        description: str,
+    ):
+        """Insert a new category into the database.
 
+        Args:
+            category_id: The identifier of the category.
+            name: The category name.
+            slug: The category slug.
+            parent_category_id: The parent category identifier, if any.
+            description: The category description.
+        """
         with self.conn.cursor() as cur:
             cur.execute("INSERT INTO categories (category_id, name, slug, parent_category_id, description) VALUES (%s, %s, %s, %s, %s)",
                         (category_id, name, slug, parent_category_id, description))
