@@ -3,12 +3,12 @@
 ## Productos
 - products x
 - brands x
-- categories 
-- product_categories
-- product_variants
-- product_attribute_keys
-- variant_attribute_values
-- suppliers
+- categories x
+- product_categories x
+- product_variants x
+- product_attribute_keys x
+- variant_attribute_values x
+- suppliers x
 - product_suppliers
 - stores
 - inventory
