@@ -21,10 +21,15 @@ def main():
         # repo.insert_productcategories(1, 1)
         # print("Proceso finalizado")
 
-        repo.insert_productvarints(1, 1, "skdj12", "Banano", 3.5, 2.5, 2.5)
-        print("Proceso finalizado")
+        # repo.insert_productvarints(2, 1, "skdj13", "Banani", 3.5, 2.5, 2.5)
+        # print("Proceso finalizado")
 
-          
+        repo.insert_product_attribute_keys(1, "f23l", "labl1")
+        print("Proceso finalizado")
+        
+        repo.insert_variant_attribute_values (1, 1, 1, "Corazon")
+        print("Proceso finalizado")
+        
     finally:
         repo.close()
 

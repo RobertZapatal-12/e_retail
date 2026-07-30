@@ -92,6 +92,12 @@ class ProductRepository:
         product_id : int, 
         category_id : int
     ):
+        """Insert a relationship between a product and a category.
+
+        Args:
+            product_id: The identifier of the product.
+            category_id: The identifier of the category.
+        """
         with self.conn.cursor() as cur:
             cur.execute("INSERT INTO product_categories (product_id, category_id) VALUES (%s, %s)",
                         (product_id, category_id))
@@ -108,9 +114,60 @@ class ProductRepository:
         cost_price : float,
         weight_kg : float
     ):
+        """Insert a product variant with its pricing and weight data.
+
+        Args:
+            variant_id: The identifier of the variant.
+            product_id: The identifier of the parent product.
+            sku: The SKU of the variant.
+            name: The name of the variant.
+            price: The selling price.
+            cost_price: The cost price.
+            weight_kg: The weight in kilograms.
+        """
         with self.conn.cursor() as cur:
             cur.execute("INSERT INTO product_variants (variant_id, product_id, sku, name, price, cost_price, weight_kg) VALUES (%s, %s, %s, %s, %s, %s, %s)",
                         (variant_id, product_id, sku, name, price, cost_price, weight_kg))
 
             self.conn.commit()
             print("Insertado correctamente")
+
+    def insert_product_attribute_keys(
+            self, 
+            attribute_key_id : int, 
+            code : str,
+            label : str
+        ):
+            """Insert an attribute key used by products.
+
+            Args:
+                attribute_key_id: The identifier of the attribute key.
+                code: The attribute code.
+                label: The human-readable label.
+            """
+            with self.conn.cursor() as cur:
+                cur.execute("INSERT INTO product_attribute_keys (attribute_key_id, code, label) VALUES (%s, %s, %s)",
+                            (attribute_key_id, code, label))
+                self.conn.commit()
+                print("Insertado correctamente")
+
+    def insert_variant_attribute_values(
+        self,
+        variant_attribute_value_id : int,  
+        variant_id : int,
+        attribute_key_id : int,     
+        value : str
+    ):
+        """Insert the value of an attribute for a specific variant.
+
+        Args:
+            variant_attribute_value_id: The identifier of the value record.
+            variant_id: The identifier of the variant.
+            attribute_key_id: The identifier of the attribute key.
+            value: The attribute value.
+        """
+        with self.conn.cursor() as cur:
+            cur.execute("INSERT INTO variant_attribute_values (variant_attribute_value_id, variant_id, attribute_key_id, value) VALUES (%s, %s, %s, %s)",
+                        (variant_attribute_value_id, variant_id, attribute_key_id, value))
+        self.conn.commit()
+        print("Insertado correctamente")
