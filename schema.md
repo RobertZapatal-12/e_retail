@@ -9,13 +9,13 @@
 - product_attribute_keys x
 - variant_attribute_values x
 - suppliers x
-- product_suppliers
-- stores
-- inventory
-- inventory_transactions
+- product_suppliers x
+- stores x
+- inventory x
+- inventory_transactions x
 
 ## Payments
-- payment_methods
+- payment_methods x
 - payment_statuses
 - payments
 

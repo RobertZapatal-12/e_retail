@@ -1,5 +1,6 @@
 from product_repo import ProductRepository
 from payments_repo import PaymentsRepository
+from orders_repo import OrdersRepository
 
 
 def main():
@@ -49,14 +50,29 @@ def main():
     # finally:
     #     repo.close()
 
-    pay_repo = PaymentsRepository()
-    try:
-        pay_repo.insert_payment_methods(1, "sd21", "He is paying with card")
-        print("Proceso finalizado")
+    # pay_repo = PaymentsRepository()
+    # try:
+    #     # pay_repo.insert_payment_methods(1, "sd21", "He is paying with card")
+    #     # print("Proceso finalizado")
 
-    finally:
-        pay_repo.close()
+    #     # pay_repo.insert_payment_statuses(1, "sf1231", "Is a good status")
+    #     # print("Proceso finalizado")
 
+    #     pay_repo.insert_payments(1, 1, 1, 1, "Tele Group", 12.5, "sad", "DDFYRHJSKA1234")
+    #     print("Proceso finalizado")
+        
+    # finally:
+    #     pay_repo.close()
+      
+    # orders_repo = OrdersRepository()
+    # try:
+    #     orders_repo.insert_order_statuses(1, "ADD12", "Good")
+    #     print("Proceso finalizado")
+
+    # finally:
+    #     orders_repo.close()
+
+    
 
 if __name__ == "__main__":
     main()

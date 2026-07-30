@@ -24,3 +24,37 @@ class PaymentsRepository:
             )
             self.conn.commit()
             print("Insertado correctamente")
+
+
+    def insert_payment_statuses(
+        self,
+        payment_status_id: int,
+        code: str,
+        description: str
+    ):
+        with self.conn.cursor() as cur:
+            cur.execute(
+                "INSERT INTO payment_statuses (payment_status_id, code, description) VALUES (%s, %s, %s)",
+                (payment_status_id, code, description)
+            )
+            self.conn.commit()
+            print("Insertado correctamente")
+
+    def insert_payments(
+        self,
+        payment_id: int,
+        order_id: int,
+        payment_method_id: int,
+        payment_status_id: int,
+        provider: str,
+        amount: float,
+        currency_code: str,
+        transaction_reference: str
+    ):
+         with self.conn.cursor() as cur:    
+              cur.execute(
+                 "INSERT INTO payments (payment_id, order_id, payment_method_id, payment_status_id, provider, amount, currency_code, transaction_reference) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+                 (payment_id, order_id, payment_method_id, payment_status_id, provider, amount, currency_code, transaction_reference)
+              )
+              self.conn.commit()
+              print(print("Insertado correctamente"))
