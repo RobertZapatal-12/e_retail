@@ -15,8 +15,13 @@ def main():
         # repo.insert_product(2, "sfgdgg", "Manzana", "Red apple for you to eat")
         # print("Proceso finalizado")
 
-        repo.insert_category(1, "Shoes", "f1256", 1, "Shoes of all types to wear")
+        # repo.insert_category(1, "Shoes", "f1256", 1, "Shoes of all types to wear")
+        # print("Proceso finalizado")
+
+        repo.insert_productcategories(1, 1)
         print("Proceso finalizado")
+
+
           
     finally:
         repo.close()

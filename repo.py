@@ -86,3 +86,14 @@ class ProductRepository:
                         (category_id, name, slug, parent_category_id, description))
             self.conn.commit()
             print("Insertado correctamente")
+
+    def insert_productcategories(
+        self, 
+        product_id, 
+        category_id
+    ):
+        with self.conn.cursor() as cur:
+            cur.execute("INSERT INTO product_categories (product_id, category_id) VALUES (%s, %s)",
+                        (product_id, category_id))
+            self.conn.commit()
+            print("Insertado correctamente")
