@@ -18,6 +18,7 @@
 - payment_methods x
 - payment_statuses x
 - payments x
+- currencies
 
 ## Orders x
 - order_statuses x
