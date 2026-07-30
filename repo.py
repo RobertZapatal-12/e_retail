@@ -222,4 +222,60 @@ class ProductRepository:
             )
             self.conn.commit()
             print("Insertado correctamente")
-        
+
+    def insert_stores(
+        self,
+        store_id: int,
+        name: str,
+        location_name: str,
+        address_line1: str,
+        address_line2: str,
+        city: str,
+        state: str,
+        postal_code: str,
+        country: str,
+        phone: str
+    ):
+        with self.conn.cursor() as cur:
+            cur.execute(
+                "INSERT INTO stores (store_id, name, location_name, address_line1, address_line2, city, state, postal_code, country, phone) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                (store_id, name, location_name, address_line1, address_line2, city, state, postal_code, country, phone)
+            )
+            self.conn.commit()
+            print("Insertado correctamente")
+
+    def insert_inventory(
+        self,
+        inventory_id: int,
+        product_id: int,
+        variant_id: int,
+        store_id: int,
+        quantity_on_hand: int,
+        quantity_reserved: int,
+        minimum_level: int
+    ):
+        with self.conn.cursor() as cur:
+            cur.execute(
+                "INSERT INTO inventory (inventory_id, product_id, variant_id, store_id, quantity_on_hand, quantity_reserved, minimum_level) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                (inventory_id, product_id, variant_id, store_id, quantity_on_hand, quantity_reserved, minimum_level)
+            )
+            self.conn.commit()
+            print("Insertado correctamente")
+
+    def insert_inventory_transactions(
+        self,
+        transaction_id: int,
+        inventory_id: int,
+        transaction_type: str,
+        quantity: int,
+        source: str,
+        reference_id: int,
+        notes: str
+    ):
+        with self.conn.cursor() as cur:
+            cur.execute(
+                "INSERT INTO inventory_transactions (transaction_id, inventory_id, transaction_type, quantity, source, reference_id, notes) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                (transaction_id, inventory_id, transaction_type, quantity, source, reference_id, notes)
+            )
+            self.conn.commit()
+            print("Insertado correctamente")
