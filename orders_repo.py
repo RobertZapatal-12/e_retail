@@ -31,14 +31,12 @@ class OrdersRepository:
         customer_id: int,
         order_number: str,
         order_status_id: int,
-        currency_code: str,
-        billing_address_id: int,
-        shipping_address_id: int
+        currency_code: str
     ):
         with self.conn.cursor() as cur:
             cur.execute(
-                "INSERT INTO orders (order_id, customer_id, order_number, order_status_id, currency_code, billing_address_id, shipping_address_id) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                (order_id, customer_id, order_number, order_status_id, currency_code, billing_address_id, shipping_address_id)
+                "INSERT INTO orders (order_id, customer_id, order_number, order_status_id, currency_code) VALUES (%s, %s, %s, %s, %s)",
+                (order_id, customer_id, order_number, order_status_id, currency_code)
             )
             self.conn.commit()
             print("Insertado correctamente")

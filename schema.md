@@ -1,6 +1,6 @@
 # Esquema por módulos
 
-## Productos
+## Productos x
 - products x
 - brands x
 - categories x
@@ -14,12 +14,12 @@
 - inventory x
 - inventory_transactions x
 
-## Payments
+## Payments x
 - payment_methods x
 - payment_statuses x
 - payments x
 
-## Orders
+## Orders x
 - order_statuses x
 - orders x
 - order_items x
@@ -34,5 +34,4 @@
 - customers x
 - customer_addresses x
 
-## Otros
-- currencies x
+
