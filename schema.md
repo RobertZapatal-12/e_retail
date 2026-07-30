@@ -16,23 +16,23 @@
 
 ## Payments
 - payment_methods x
-- payment_statuses
-- payments
+- payment_statuses x
+- payments x
 
 ## Orders
-- order_statuses
-- orders
-- order_items
+- order_statuses x
+- orders x
+- order_items x
 - carriers
-- shipment_statuses
+- shipment_statuses x
 - shipments
-- promotion_types
-- promotions
-- order_promotions
+- promotion_types x
+- promotions x
+- order_promotions x
 
 ## Customers
-- customers
-- customer_addresses
+- customers x
+- customer_addresses x
 
 ## Otros
-- currencies
+- currencies x

@@ -1,6 +1,7 @@
 from product_repo import ProductRepository
 from payments_repo import PaymentsRepository
 from orders_repo import OrdersRepository
+from customers_repo import CustomersRepository
 
 
 def main():
@@ -52,11 +53,11 @@ def main():
 
     # pay_repo = PaymentsRepository()
     # try:
-    #     # pay_repo.insert_payment_methods(1, "sd21", "He is paying with card")
-    #     # print("Proceso finalizado")
+    #     pay_repo.insert_payment_methods(1, "sd21", "He is paying with card")
+    #     print("Proceso finalizado")
 
-    #     # pay_repo.insert_payment_statuses(1, "sf1231", "Is a good status")
-    #     # print("Proceso finalizado")
+    #     pay_repo.insert_payment_statuses(1, "sf1231", "Is a good status")
+    #     print("Proceso finalizado")
 
     #     pay_repo.insert_payments(1, 1, 1, 1, "Tele Group", 12.5, "sad", "DDFYRHJSKA1234")
     #     print("Proceso finalizado")
@@ -66,13 +67,21 @@ def main():
       
     # orders_repo = OrdersRepository()
     # try:
-    #     orders_repo.insert_order_statuses(1, "ADD12", "Good")
+    #     # orders_repo.insert_order_statuses(1, "ADD12", "Good")
+    #     # print("Proceso finalizado")
+
+    #     orders_repo.insert_orders(1, 1, "123", 1, "a1", 1, 1)
     #     print("Proceso finalizado")
 
     # finally:
     #     orders_repo.close()
 
-    
+    # cust_repo = CustomersRepository()
+    # try:
+    #     cust_repo.insert_customers(1, "Robert Yarel", "Zapata Linares", "yarelzapatal@gmail.com", "8097657654")
+    #     print("Proceso finalizado")
+    # finally:
+    #     cust_repo.close
 
 if __name__ == "__main__":
     main()
