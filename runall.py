@@ -1,15 +1,15 @@
 from database import get_connection
 
-from product_repo import ProductRepository
-from customers_repo import CustomersRepository
-from payments_repo import PaymentsRepository
-from orders_repo import OrdersRepository
+from repositories.product_repo import ProductRepository
+from repositories.customers_repo import CustomersRepository
+from repositories.payments_repo import PaymentsRepository
+from repositories.orders_repo import OrdersRepository
 
 
-from products_seed import run_products_seed
-from customers_seed import run_customers_seed
-from payments_seed import run_payments_seed, run_payments_data_seed
-from orders_seed import run_orders_seed
+from seed.products_seed import run_products_seed
+from seed.customers_seed import run_customers_seed
+from seed.payments_seed import run_payments_seed, run_payments_data_seed
+from seed.orders_seed import run_orders_seed
 
 
 
