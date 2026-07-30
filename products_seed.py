@@ -1,5 +1,7 @@
 from faker import Faker
 import random
+import re
+import unicodedata
 
 
 fake = Faker("es_ES")
@@ -14,9 +16,64 @@ NUM_SUPPLIERS = 30
 NUM_STORES = 10
 
 
+
+def create_slug(text, used_slugs):
+
+    text = unicodedata.normalize(
+        "NFD",
+        text
+    ).encode(
+        "ascii",
+        "ignore"
+    ).decode(
+        "utf-8"
+    )
+
+    slug = re.sub(
+        r"[^a-zA-Z0-9]+",
+        "-",
+        text.lower()
+    ).strip("-")
+
+
+    original_slug = slug
+    counter = 1
+
+
+    while slug in used_slugs:
+        slug = f"{original_slug}-{counter}"
+        counter += 1
+
+
+    used_slugs.add(slug)
+
+    return slug
+
+
+
+def unique_value(value, used_values):
+
+    original = value
+    counter = 1
+
+
+    while value in used_values:
+        value = f"{original}-{counter}"
+        counter += 1
+
+
+    used_values.add(value)
+
+    return value
+
+
+
+
+
 def run_products_seed(products_repo):
 
     print("=== Iniciando Products Seed ===")
+
 
 
     # =========================
@@ -24,6 +81,9 @@ def run_products_seed(products_repo):
     # =========================
 
     brands_ids = []
+
+    used_brands = set()
+
 
     brands = [
         "Apple",
@@ -38,16 +98,31 @@ def run_products_seed(products_repo):
         "Microsoft"
     ]
 
+
     for i in range(1, NUM_BRANDS + 1):
 
-        name = brands[i-1] if i <= len(brands) else fake.company()
+        name = (
+            brands[i-1]
+            if i <= len(brands)
+            else fake.company()
+        )
+
+
+        name = unique_value(
+            name,
+            used_brands
+        )
+
 
         products_repo.insert_brands(
             i,
             name
         )
 
+
         brands_ids.append(i)
+
+
 
 
     # =========================
@@ -55,6 +130,9 @@ def run_products_seed(products_repo):
     # =========================
 
     categories_ids = []
+
+    used_category_slugs = set()
+
 
     categories = [
         "Laptops",
@@ -72,17 +150,30 @@ def run_products_seed(products_repo):
 
     for i in range(1, NUM_CATEGORIES + 1):
 
-        name = categories[i-1] if i <= len(categories) else fake.word().title()
+        name = (
+            categories[i-1]
+            if i <= len(categories)
+            else fake.word().title()
+        )
+
+
+        slug = create_slug(
+            name,
+            used_category_slugs
+        )
+
 
         products_repo.insert_category(
             i,
             name,
-            name.lower().replace(" ", "-"),
+            slug,
             None,
             fake.text(max_nb_chars=100)
         )
 
+
         categories_ids.append(i)
+
 
 
 
@@ -95,16 +186,20 @@ def run_products_seed(products_repo):
 
     for i in range(1, NUM_PRODUCTS + 1):
 
-        product_id = i
+        brand_id = random.choice(brands_ids)
+
 
         products_repo.insert_product(
-            product_id,
+            brand_id,
+            i,
             f"SKU-{10000+i}",
             fake.catch_phrase(),
             fake.text(max_nb_chars=200)
         )
 
-        products_ids.append(product_id)
+
+        products_ids.append(i)
+
 
 
 
@@ -112,10 +207,10 @@ def run_products_seed(products_repo):
     # PRODUCT CATEGORIES
     # =========================
 
-
     for product_id in products_ids:
 
         category_id = random.choice(categories_ids)
+
 
         products_repo.insert_productcategories(
             product_id,
@@ -124,10 +219,10 @@ def run_products_seed(products_repo):
 
 
 
+
     # =========================
     # ATTRIBUTE KEYS
     # =========================
-
 
     attributes = [
         ("COLOR", "Color"),
@@ -149,6 +244,7 @@ def run_products_seed(products_repo):
             attribute[1]
         )
 
+
         attribute_ids.append(i)
 
 
@@ -158,8 +254,16 @@ def run_products_seed(products_repo):
     # PRODUCT VARIANTS
     # =========================
 
-
     variants_ids = []
+
+
+    variant_names = [
+        "Base",
+        "Pro",
+        "Gaming",
+        "Ultra",
+        "Plus"
+    ]
 
 
     for i in range(1, NUM_VARIANTS + 1):
@@ -171,11 +275,12 @@ def run_products_seed(products_repo):
             i,
             product_id,
             f"VAR-{10000+i}",
-            fake.word().title(),
+            random.choice(variant_names),
             round(random.uniform(20,2000),2),
             round(random.uniform(10,1500),2),
             round(random.uniform(0.1,5),2)
         )
+
 
         variants_ids.append(i)
 
@@ -185,7 +290,6 @@ def run_products_seed(products_repo):
     # =========================
     # VARIANT ATTRIBUTES
     # =========================
-
 
     colors = [
         "Negro",
@@ -215,20 +319,25 @@ def run_products_seed(products_repo):
     # SUPPLIERS
     # =========================
 
-
     suppliers_ids = []
+
+    used_emails = set()
 
 
     for i in range(1, NUM_SUPPLIERS + 1):
+
+        email = fake.unique.email()
+
 
         products_repo.insert_suppliers(
             i,
             fake.company(),
             fake.name(),
-            fake.email(),
+            email,
             fake.phone_number(),
             fake.address()
         )
+
 
         suppliers_ids.append(i)
 
@@ -238,7 +347,6 @@ def run_products_seed(products_repo):
     # =========================
     # PRODUCT SUPPLIERS
     # =========================
-
 
     for product_id in products_ids:
 
@@ -258,7 +366,6 @@ def run_products_seed(products_repo):
     # =========================
     # STORES
     # =========================
-
 
     stores_ids = []
 
@@ -288,7 +395,6 @@ def run_products_seed(products_repo):
     # INVENTORY
     # =========================
 
-
     inventory_ids = []
 
 
@@ -309,6 +415,7 @@ def run_products_seed(products_repo):
             random.randint(5,50)
         )
 
+
         inventory_ids.append(i)
 
 
@@ -317,7 +424,6 @@ def run_products_seed(products_repo):
     # =========================
     # INVENTORY TRANSACTIONS
     # =========================
-
 
     for i, inventory_id in enumerate(inventory_ids, start=1):
 

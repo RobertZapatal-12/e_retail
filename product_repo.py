@@ -45,6 +45,7 @@ class ProductRepository:
 
     def insert_product(
         self,
+        brand_id : int,
         product_id: int,
         sku: str,
         name: str,
@@ -60,8 +61,8 @@ class ProductRepository:
         """
         with self.conn.cursor() as cur:
             cur.execute(
-                "INSERT INTO products (product_id, sku, name, description) VALUES (%s, %s, %s, %s)",
-                (product_id, sku, name, description))
+                "INSERT INTO products (brand_id, product_id, sku, name, description) VALUES (%s, %s, %s, %s, %s)",
+                (brand_id, product_id, sku, name, description))
             self.conn.commit()
             print("Insertado correctamente")
 
