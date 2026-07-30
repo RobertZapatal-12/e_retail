@@ -18,9 +18,11 @@ def main():
         # repo.insert_category(1, "Shoes", "f1256", 1, "Shoes of all types to wear")
         # print("Proceso finalizado")
 
-        repo.insert_productcategories(1, 1)
-        print("Proceso finalizado")
+        # repo.insert_productcategories(1, 1)
+        # print("Proceso finalizado")
 
+        repo.insert_productvarints(1, 1, "skdj12", "Banano", 3.5, 2.5, 2.5)
+        print("Proceso finalizado")
 
           
     finally:

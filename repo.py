@@ -89,11 +89,28 @@ class ProductRepository:
 
     def insert_productcategories(
         self, 
-        product_id, 
-        category_id
+        product_id : int, 
+        category_id : int
     ):
         with self.conn.cursor() as cur:
             cur.execute("INSERT INTO product_categories (product_id, category_id) VALUES (%s, %s)",
                         (product_id, category_id))
+            self.conn.commit()
+            print("Insertado correctamente")
+
+    def insert_productvarints(
+        self,
+        variant_id : int,
+        product_id : int,
+        sku : str,
+        name : str,
+        price : float,
+        cost_price : float,
+        weight_kg : float
+    ):
+        with self.conn.cursor() as cur:
+            cur.execute("INSERT INTO product_variants (variant_id, product_id, sku, name, price, cost_price, weight_kg) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                        (variant_id, product_id, sku, name, price, cost_price, weight_kg))
+
             self.conn.commit()
             print("Insertado correctamente")
