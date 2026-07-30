@@ -213,8 +213,16 @@ class ProductRepository:
         product_id: int,
         supplier_id: int,
         supplier_sku: str,
-        lead_time_days : int
+        lead_time_days: int
     ):
+        """Insert a relationship between a product and a supplier.
+
+        Args:
+            product_id: The identifier of the product.
+            supplier_id: The identifier of the supplier.
+            supplier_sku: The supplier SKU assigned to the product.
+            lead_time_days: The lead time in days for the supplier.
+        """
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO product_suppliers (product_id, supplier_id, supplier_sku, lead_time_days) VALUES (%s, %s, %s, %s)",
@@ -236,6 +244,20 @@ class ProductRepository:
         country: str,
         phone: str
     ):
+        """Insert a store into the database.
+
+        Args:
+            store_id: The identifier of the store.
+            name: The name of the store.
+            location_name: The location or branch name.
+            address_line1: The first address line.
+            address_line2: The second address line.
+            city: The city where the store is located.
+            state: The state or province.
+            postal_code: The postal code.
+            country: The country.
+            phone: The store phone number.
+        """
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO stores (store_id, name, location_name, address_line1, address_line2, city, state, postal_code, country, phone) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
@@ -254,6 +276,17 @@ class ProductRepository:
         quantity_reserved: int,
         minimum_level: int
     ):
+        """Insert inventory information for a product in a store.
+
+        Args:
+            inventory_id: The identifier of the inventory record.
+            product_id: The identifier of the product.
+            variant_id: The identifier of the product variant.
+            store_id: The identifier of the store.
+            quantity_on_hand: The current quantity available.
+            quantity_reserved: The quantity reserved for orders.
+            minimum_level: The minimum stock level required.
+        """
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO inventory (inventory_id, product_id, variant_id, store_id, quantity_on_hand, quantity_reserved, minimum_level) VALUES (%s, %s, %s, %s, %s, %s, %s)",
@@ -272,6 +305,17 @@ class ProductRepository:
         reference_id: int,
         notes: str
     ):
+        """Insert a transaction record for inventory movement.
+
+        Args:
+            transaction_id: The identifier of the transaction.
+            inventory_id: The identifier of the inventory record.
+            transaction_type: The type of transaction, such as inbound or outbound.
+            quantity: The quantity involved in the transaction.
+            source: The source of the transaction.
+            reference_id: The related reference identifier.
+            notes: Additional notes about the transaction.
+        """
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO inventory_transactions (transaction_id, inventory_id, transaction_type, quantity, source, reference_id, notes) VALUES (%s, %s, %s, %s, %s, %s, %s)",
