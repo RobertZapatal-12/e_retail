@@ -45,7 +45,7 @@ class ProductRepository:
 
     def insert_product(
         self,
-        brand_id : int,
+        brand_id: int,
         product_id: int,
         sku: str,
         name: str,
@@ -62,7 +62,8 @@ class ProductRepository:
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO products (brand_id, product_id, sku, name, description) VALUES (%s, %s, %s, %s, %s)",
-                (brand_id, product_id, sku, name, description))
+                (brand_id, product_id, sku, name, description),
+            )
             self.conn.commit()
             print("Insertado correctamente")
 
@@ -86,15 +87,12 @@ class ProductRepository:
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO categories (category_id, name, slug, parent_category_id, description) VALUES (%s, %s, %s, %s, %s)",
-                (category_id, name, slug, parent_category_id, description))
+                (category_id, name, slug, parent_category_id, description),
+            )
             self.conn.commit()
             print("Insertado correctamente")
 
-    def insert_productcategories(
-        self, 
-        product_id: int, 
-        category_id: int
-    ):
+    def insert_productcategories(self, product_id: int, category_id: int):
         """Insert a relationship between a product and a category.
 
         Args:
@@ -104,7 +102,7 @@ class ProductRepository:
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO product_categories (product_id, category_id) VALUES (%s, %s)",
-                (product_id, category_id)
+                (product_id, category_id),
             )
             self.conn.commit()
             print("Insertado correctamente")
@@ -117,7 +115,7 @@ class ProductRepository:
         name: str,
         price: float,
         cost_price: float,
-        weight_kg: float
+        weight_kg: float,
     ):
         """Insert a product variant with its pricing and weight data.
 
@@ -133,16 +131,13 @@ class ProductRepository:
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO product_variants (variant_id, product_id, sku, name, price, cost_price, weight_kg) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                (variant_id, product_id, sku, name, price, cost_price, weight_kg)
+                (variant_id, product_id, sku, name, price, cost_price, weight_kg),
             )
             self.conn.commit()
             print("Insertado correctamente")
 
     def insert_product_attribute_keys(
-        self, 
-        attribute_key_id: int, 
-        code: str,
-        label: str
+        self, attribute_key_id: int, code: str, label: str
     ):
         """Insert an attribute key used by products.
 
@@ -154,17 +149,17 @@ class ProductRepository:
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO product_attribute_keys (attribute_key_id, code, label) VALUES (%s, %s, %s)",
-                (attribute_key_id, code, label)
+                (attribute_key_id, code, label),
             )
             self.conn.commit()
             print("Insertado correctamente")
 
     def insert_variant_attribute_values(
         self,
-        variant_attribute_value_id: int,  
+        variant_attribute_value_id: int,
         variant_id: int,
-        attribute_key_id: int,     
-        value: str
+        attribute_key_id: int,
+        value: str,
     ):
         """Insert the value of an attribute for a specific variant.
 
@@ -177,7 +172,7 @@ class ProductRepository:
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO variant_attribute_values (variant_attribute_value_id, variant_id, attribute_key_id, value) VALUES (%s, %s, %s, %s)",
-                (variant_attribute_value_id, variant_id, attribute_key_id, value)
+                (variant_attribute_value_id, variant_id, attribute_key_id, value),
             )
             self.conn.commit()
             print("Insertado correctamente")
@@ -204,17 +199,13 @@ class ProductRepository:
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO suppliers (supplier_id, name, contact_name, email, phone, address) VALUES (%s, %s, %s, %s, %s, %s)",
-                (supplier_id, name, contact_name, email, phone, address)
+                (supplier_id, name, contact_name, email, phone, address),
             )
             self.conn.commit()
             print("Insertado correctamente")
 
     def insert_product_suppliers(
-        self,
-        product_id: int,
-        supplier_id: int,
-        supplier_sku: str,
-        lead_time_days: int
+        self, product_id: int, supplier_id: int, supplier_sku: str, lead_time_days: int
     ):
         """Insert a relationship between a product and a supplier.
 
@@ -227,7 +218,7 @@ class ProductRepository:
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO product_suppliers (product_id, supplier_id, supplier_sku, lead_time_days) VALUES (%s, %s, %s, %s)",
-                (product_id, supplier_id, supplier_sku, lead_time_days)
+                (product_id, supplier_id, supplier_sku, lead_time_days),
             )
             self.conn.commit()
             print("Insertado correctamente")
@@ -243,7 +234,7 @@ class ProductRepository:
         state: str,
         postal_code: str,
         country: str,
-        phone: str
+        phone: str,
     ):
         """Insert a store into the database.
 
@@ -262,7 +253,18 @@ class ProductRepository:
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO stores (store_id, name, location_name, address_line1, address_line2, city, state, postal_code, country, phone) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                (store_id, name, location_name, address_line1, address_line2, city, state, postal_code, country, phone)
+                (
+                    store_id,
+                    name,
+                    location_name,
+                    address_line1,
+                    address_line2,
+                    city,
+                    state,
+                    postal_code,
+                    country,
+                    phone,
+                ),
             )
             self.conn.commit()
             print("Insertado correctamente")
@@ -275,7 +277,7 @@ class ProductRepository:
         store_id: int,
         quantity_on_hand: int,
         quantity_reserved: int,
-        minimum_level: int
+        minimum_level: int,
     ):
         """Insert inventory information for a product in a store.
 
@@ -291,7 +293,15 @@ class ProductRepository:
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO inventory (inventory_id, product_id, variant_id, store_id, quantity_on_hand, quantity_reserved, minimum_level) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                (inventory_id, product_id, variant_id, store_id, quantity_on_hand, quantity_reserved, minimum_level)
+                (
+                    inventory_id,
+                    product_id,
+                    variant_id,
+                    store_id,
+                    quantity_on_hand,
+                    quantity_reserved,
+                    minimum_level,
+                ),
             )
             self.conn.commit()
             print("Insertado correctamente")
@@ -304,7 +314,7 @@ class ProductRepository:
         quantity: int,
         source: str,
         reference_id: int,
-        notes: str
+        notes: str,
     ):
         """Insert a transaction record for inventory movement.
 
@@ -320,7 +330,15 @@ class ProductRepository:
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO inventory_transactions (transaction_id, inventory_id, transaction_type, quantity, source, reference_id, notes) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                (transaction_id, inventory_id, transaction_type, quantity, source, reference_id, notes)
+                (
+                    transaction_id,
+                    inventory_id,
+                    transaction_type,
+                    quantity,
+                    source,
+                    reference_id,
+                    notes,
+                ),
             )
             self.conn.commit()
             print("Insertado correctamente")

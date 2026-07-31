@@ -2,7 +2,6 @@ from runall import run_all
 
 
 def main():
-
     run_all()
 
 

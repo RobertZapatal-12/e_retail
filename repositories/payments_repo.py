@@ -7,34 +7,28 @@ class PaymentsRepository:
         self.conn = conn or get_connection()
 
     def close(self):
-            """Close the database connection if it exists."""
-            if self.conn is not None:
-                self.conn.close()
+        """Close the database connection if it exists."""
+        if self.conn is not None:
+            self.conn.close()
 
     def insert_payment_methods(
-        self,
-        payment_method_id: int,
-        code: str,
-        description: str
+        self, payment_method_id: int, code: str, description: str
     ):
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO payment_methods (payment_method_id, code, description) VALUES (%s, %s, %s)",
-                (payment_method_id, code, description)
+                (payment_method_id, code, description),
             )
             self.conn.commit()
             print("Insertado correctamente")
 
     def insert_payment_statuses(
-        self,
-        payment_status_id: int,
-        code: str,
-        description: str
+        self, payment_status_id: int, code: str, description: str
     ):
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO payment_statuses (payment_status_id, code, description) VALUES (%s, %s, %s)",
-                (payment_status_id, code, description)
+                (payment_status_id, code, description),
             )
             self.conn.commit()
             print("Insertado correctamente")
@@ -48,25 +42,30 @@ class PaymentsRepository:
         provider: str,
         amount: float,
         currency_code: str,
-        transaction_reference: str
+        transaction_reference: str,
     ):
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO payments (payment_id, order_id, payment_method_id, payment_status_id, provider, amount, currency_code, transaction_reference) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
-                (payment_id, order_id, payment_method_id, payment_status_id, provider, amount, currency_code, transaction_reference)
+                (
+                    payment_id,
+                    order_id,
+                    payment_method_id,
+                    payment_status_id,
+                    provider,
+                    amount,
+                    currency_code,
+                    transaction_reference,
+                ),
             )
             self.conn.commit()
             print("Insertado correctamente")
 
-    def insert_currencies(
-        self,
-        currency_code: str,
-        name: str
-    ):
+    def insert_currencies(self, currency_code: str, name: str):
         with self.conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO currencies (currency_code, name) VALUES (%s, %s)",
-                (currency_code, name)
+                (currency_code, name),
             )
             self.conn.commit()
             print("Insertado correctamente")

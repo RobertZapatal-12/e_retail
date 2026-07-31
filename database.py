@@ -24,4 +24,3 @@ def get_connection():
         psycopg2.extensions.connection: A database connection object.
     """
     return create_connection()
-
