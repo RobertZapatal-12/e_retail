@@ -1,4 +1,4 @@
-from database import get_connection
+from connection.database import get_connection
 
 from repositories.product_repo import ProductRepository
 from repositories.customers_repo import CustomersRepository
