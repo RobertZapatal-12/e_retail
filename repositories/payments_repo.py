@@ -6,6 +6,7 @@ class PaymentsRepository:
     def __init__(self, conn=None):
         self.conn = conn or get_connection()
 
+
     def close(self):
         """Close the database connection if it exists."""
         if self.conn is not None:
